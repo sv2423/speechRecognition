@@ -1,3 +1,4 @@
+git checkout develop
 git add .
 git commit -am %1
 echo "Commit Done"
