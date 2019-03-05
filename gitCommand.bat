@@ -1,10 +1,10 @@
-git checkout develop
-git add .
-git commit -am %1
+call git checkout develop
+call git add .
+call git commit -am %1
 echo "Commit Done"
-git push
+call git push
 echo "Push Done"
-ng build --prod --base-href "https://sv2423.github.io/speechRecognition/"
+call ng build --prod --base-href "https://sv2423.github.io/speechRecognition/"
 echo "Build Done"
-ngh
+call ngh
 echo "Publish Done"
