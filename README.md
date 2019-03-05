@@ -25,3 +25,16 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+##Install angular-cli-ghpages globally
+
+npm install -g angular-cli-ghpages
+
+##Now use the Angular CLI with the --base-href flag to build your project and set the correct base href location:
+
+ng build --prod --base-href "https://<user-name>.github.io/<repo>/"
+
+##Then it’s as simple as running angular-cli-ghpages. You can use the ngh shorthand:
+ngh
+
+##And done! Your app will now be hosted at https://username.github.io/app-name/
