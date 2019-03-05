@@ -8,3 +8,4 @@ call ng build --prod --base-href "https://sv2423.github.io/speechRecognition/"
 echo "Build Done"
 call ngh
 echo "Publish Done"
+cls
