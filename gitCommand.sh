@@ -1,6 +1,5 @@
-#!/bin/sh
 git add .
-git commit -am "$1"
+git commit -am %1
 echo "Commit Done"
 git push
 echo "Push Done"
