@@ -15,5 +15,8 @@
   <button (click)="onSpeechStart()">speech to text</button><br />
   <button (click)="onSpeechStop()">stop</button>
 </div>
+<div class="row">
+  <ckeditor [editor]="Editor" [(ngModel)]="speechText"></ckeditor>
+</div>
 
 <router-outlet></router-outlet>

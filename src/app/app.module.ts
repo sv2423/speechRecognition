@@ -6,9 +6,12 @@ import { AppComponent } from "./app.component";
 
 import { FormsModule } from "@angular/forms";
 
+//Third Party Modules
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, CKEditorModule],
   providers: [],
   bootstrap: [AppComponent]
 })

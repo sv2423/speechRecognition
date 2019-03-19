@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgZone } from "@angular/core";
+import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 @Component({
   selector: "app-root",
@@ -6,10 +7,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
+  public Editor = ClassicEditor;
   title = "speechRecognition";
   recognition: SpeechRecognition;
   speechText: string;
-  // that:any;
+
+  constructor(private zone: NgZone) {}
 
   ngOnInit() {
     var SpeechRecognition =
@@ -31,28 +34,9 @@ export class AppComponent implements OnInit {
       }
     };
 
-    this.recognition.onresult = this.onSpeechResult;
-
-    // // this.that = this;
-    // this.recognition.onresult = function(event) {
-    //   // event is a Speechthis.recognitionEvent object.
-    //   // It holds all the lines we have captured so far.
-    //   // We only need the current one.
-    //   var current = event.resultIndex;
-
-    //   // Get a transcript of what was said.
-    //   var transcript = event.results[current][0].transcript;
-
-    //   console.log(transcript);
-    //   console.log("1", test.speechText);
-    //   test.speechText = transcript;
-    //   console.log(test.speechText);
-    //   // Add the current transcript to the contents of our Note.
-    //   //  noteContent += transcript;
-    //   // noteTextarea.val(noteContent);
-    // };
-
-    test = this;
+    this.recognition.onresult = event => {
+      this.onSpeechResult(event);
+    };
   }
 
   public onSpeechResult(event) {
@@ -63,38 +47,22 @@ export class AppComponent implements OnInit {
 
     // Get a transcript of what was said.
     var transcript = event.results[current][0].transcript;
-
-    console.log(transcript);
-    console.log("1", this.speechText);
-    this.speechText = transcript;
-    console.log(this.speechText);
-    // Add the current transcript to the contents of our Note.
-    //  noteContent += transcript;
-    // noteTextarea.val(noteContent);
+    this.zone.run(() => {
+      this.speechText = transcript;
+    });
   }
 
   /**
    *
    */
-  constructor() {}
-
-  /*  var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
-
-if(!mobileRepeatBug) {
-  noteContent += transcript;
-  noteTextarea.val(noteContent);
-} */
 
   public onSpeechStart() {
-    test.speechText = "testingggg";
-    console.log(this.recognition);
+    this.speechText = "testingggg";
     this.recognition.start();
   }
 
   public onSpeechStop() {
-    test.speechText = "stoping";
+    this.speechText = "stoping";
     this.recognition.stop();
   }
 }
-
-var test;
