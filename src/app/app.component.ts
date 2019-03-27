@@ -58,6 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   public textToSpeech() {
+    console.log(this.Editor);
     var SpeechSynthesisUtterance = (window as any).SpeechSynthesisUtterance;
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
@@ -67,7 +68,7 @@ export class AppComponent implements OnInit {
     msg.rate = 1; // 0.1 to 10
     msg.pitch = 1; //0 to 2
 
-    msg.text = this.getCkEditorText();
+    msg.text = this.speechText.replace(/(<([^>]+)>)/gi, "");
     msg.lang = "hi";
 
     msg.onend = function(e) {
@@ -75,18 +76,6 @@ export class AppComponent implements OnInit {
     };
 
     speechSynthesis.speak(msg);
-  }
-
-  public getCkEditorText() {
-    var editor = new ClassicEditor();
-    //console.log(this.Editor.getData());
-    console.log(editor.getSnapshot());
-    var html = editor.getSnapshot();
-    var dom = document.createElement("DIV");
-    dom.innerHTML = html;
-    var plain_text = dom.textContent || dom.innerText;
-
-    return plain_text;
   }
 
   /**
