@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from "@angular/core";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
+import { AppService } from "./app.service";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -10,15 +10,20 @@ export class AppComponent implements OnInit {
   public Editor = ClassicEditor;
   title = "speechRecognition";
   recognition: SpeechRecognition;
-  speechText: string;
+  speechText: string = "";
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone, private appService: AppService) {}
 
   ngOnInit() {
     var SpeechRecognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
     this.recognition = new SpeechRecognition();
+    this.recognition.lang = "hi-IN";
+    this.appService.getSpeechText().subscribe(data => {
+      console.log(data);
+      this.speechText = data[0].speechText;
+    });
 
     this.recognition.onstart = function() {
       //  instructions.text('Voice this.recognition activated. Try speaking into the microphone.');

@@ -6,7 +6,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 import { FormsModule } from "@angular/forms";
-
+import { HttpClientModule } from "@angular/common/http";
 //Third Party Modules
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -21,7 +21,8 @@ import { MatButtonModule } from "@angular/material/button";
     FormsModule,
     CKEditorModule,
     MatGridListModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
