@@ -19,16 +19,12 @@ export class AppComponent implements OnInit {
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
     this.recognition = new SpeechRecognition();
-<<<<<<< HEAD
     this.recognition.lang = "hi-IN";
     this.appService.getSpeechText().subscribe(data => {
       console.log(data);
       this.speechText = data[0].speechText;
     });
 
-=======
-    this.recognition.lang = 'hi-IN';
->>>>>>> 9a68d0c0a2a4b6f0e4057e23329e0290c87d7d51
     this.recognition.onstart = function() {
       //  instructions.text('Voice this.recognition activated. Try speaking into the microphone.');
     };
