@@ -8,7 +8,11 @@
   <section class="section--center">
     <div class="mat-grid-list" cols="2" rowheight="2:1">
       <div class="mat-grid-tile">
-        <ckeditor [editor]="Editor" [(ngModel)]="speechText"></ckeditor>
+        <ckeditor
+          [editor]="Editor"
+          id="editor"
+          [(ngModel)]="speechText"
+        ></ckeditor>
       </div>
       <div class="mat-grid-tile">
         <button mat-raised-button color="primary" (click)="onSpeechStart()">
@@ -16,6 +20,9 @@
         </button>
         <button mat-raised-button color="warn" (click)="onSpeechStop()">
           Stop
+        </button>
+        <button mat-raised-button color="warn" (click)="textToSpeech()">
+          Read
         </button>
       </div>
     </div>
