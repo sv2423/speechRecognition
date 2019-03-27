@@ -11,6 +11,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatButtonModule } from "@angular/material/button";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { MatButtonModule } from "@angular/material/button";
     CKEditorModule,
     MatGridListModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,22 +6,36 @@
 </header>
 <main class="mdl-layout__content">
   <section class="section--center">
+    <div style="margin: 10px;width: 300px;">
+      <mat-select
+        [(ngModel)]="selectedVoice"
+        (change)="setLanguage(selectedVoice)"
+        ><mat-option *ngFor="let voice of voices" [value]="voice">{{
+          voice.name
+        }}</mat-option></mat-select
+      >
+    </div>
     <div class="mat-grid-list" cols="2" rowheight="2:1">
-      <div class="mat-grid-tile">
+      <div class="mat-grid-tile" style="margin:10px">
         <ckeditor
           [editor]="Editor"
           id="editor"
           [(ngModel)]="speechText"
         ></ckeditor>
       </div>
-      <div class="mat-grid-tile">
+      <div class="mat-grid-tile button-list">
         <button mat-raised-button color="primary" (click)="onSpeechStart()">
           Speech to Text
         </button>
         <button mat-raised-button color="warn" (click)="onSpeechStop()">
           Stop
         </button>
-        <button mat-raised-button color="warn" (click)="textToSpeech()">
+        <button
+          style="margin-left:10px"
+          mat-raised-button
+          color="primary"
+          (click)="textToSpeech()"
+        >
           Read
         </button>
       </div>

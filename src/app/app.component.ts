@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from "@angular/core";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { AppService } from "./app.service";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -11,21 +12,43 @@ export class AppComponent implements OnInit {
   title = "speechRecognition";
   recognition: SpeechRecognition;
   speechText: string = "";
+  public voices: Array<Object>;
+  public selectedVoice: any;
 
   constructor(private zone: NgZone, private appService: AppService) {}
 
   ngOnInit() {
+    console.log(Date.now());
+
+    const source = setInterval(() => {
+      console.log("timer has started");
+      if (
+        window.speechSynthesis &&
+        window.speechSynthesis.getVoices() &&
+        window.speechSynthesis.getVoices().length > 0
+      ) {
+        this.initSetup();
+        clearInterval(source);
+      }
+    }, 1000);
+  }
+
+  public initSetup() {
+    console.log("method called");
+    this.voices = window.speechSynthesis.getVoices();
+    this.selectedVoice = this.voices[9];
     var SpeechRecognition =
       (window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition;
     this.recognition = new SpeechRecognition();
-    this.recognition.lang = "hi-IN";
+    this.recognition.lang = this.selectedVoice.lang;
     this.appService.getSpeechText().subscribe(data => {
       console.log(data);
       this.speechText = data[0].speechText;
     });
 
-    this.recognition.onstart = function() {
+    this.recognition.onstart = () => {
+      this.recognition.lang = this.selectedVoice.lang;
       //  instructions.text('Voice this.recognition activated. Try speaking into the microphone.');
     };
 
@@ -43,7 +66,6 @@ export class AppComponent implements OnInit {
       this.onSpeechResult(event);
     };
   }
-
   public onSpeechResult(event) {
     // event is a Speechthis.recognitionEvent object.
     // It holds all the lines we have captured so far.
@@ -57,19 +79,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  public setLanguage(voice: any) {
+    this.recognition.lang = voice.lang;
+  }
+
   public textToSpeech() {
     console.log(this.Editor);
     var SpeechSynthesisUtterance = (window as any).SpeechSynthesisUtterance;
     var msg = new SpeechSynthesisUtterance();
-    var voices = window.speechSynthesis.getVoices();
-    msg.voice = voices[9]; // Note: some voices don't support altering params
+    msg.voice = this.selectedVoice; // Note: some voices don't support altering params
     msg.voiceURI = "native";
     msg.volume = 1; // 0 to 1
     msg.rate = 1; // 0.1 to 10
     msg.pitch = 1; //0 to 2
 
     msg.text = this.speechText.replace(/(<([^>]+)>)/gi, "");
-    msg.lang = "hi";
+    msg.lang = this.selectedVoice.lang;
 
     msg.onend = function(e) {
       console.log("Finished in " + e.elapsedTime + " seconds.");
